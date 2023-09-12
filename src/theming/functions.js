@@ -42,7 +42,7 @@ module.exports = {
     const resultObj = {}
 
     Object.entries(input).forEach(([rule, value]) => {
-      // if (!Object.hasOwn(colorNames, rule)) {
+      // if (colorNames[rule] !== undefined) {
       // resultObj[rule] = value
       // } else {
       //   let arr
@@ -70,28 +70,28 @@ module.exports = {
       // }
 
       // auto generate focus colors
-      if (!Object.hasOwn(input, "primary-focus")) {
+      if (input["primary-focus"] === undefined) {
         resultObj["--pf"] = this.generateDarkenColorFrom(input["primary"])
       }
-      if (!Object.hasOwn(input, "secondary-focus")) {
+      if (input["secondary-focus"] === undefined) {
         resultObj["--sf"] = this.generateDarkenColorFrom(input["secondary"])
       }
-      if (!Object.hasOwn(input, "accent-focus")) {
+      if (input["accent-focus"] === undefined) {
         resultObj["--af"] = this.generateDarkenColorFrom(input["accent"])
       }
-      if (!Object.hasOwn(input, "neutral-focus")) {
+      if (input["neutral-focus"] === undefined) {
         resultObj["--nf"] = this.generateDarkenColorFrom(input["neutral"])
       }
 
       // auto generate base colors
-      if (!Object.hasOwn(input, "base-100")) {
+      if (input["base-100"] === undefined) {
         resultObj["--b1"] = "100 0 0"
       }
-      if (!Object.hasOwn(input, "base-200")) {
+      if (input["base-200"] === undefined) {
         resultObj["--b2"] = this.generateDarkenColorFrom(input["base-100"])
       }
-      if (!Object.hasOwn(input, "base-300")) {
-        if (Object.hasOwn(input, "base-200")) {
+      if (input["base-300"] === undefined) {
+        if (input["base-200"] !== undefined) {
           resultObj["--b3"] = this.generateDarkenColorFrom(input["base-200"])
         } else {
           resultObj["--b3"] = this.generateDarkenColorFrom(input["base-100"], 0.14)
@@ -100,58 +100,58 @@ module.exports = {
 
       // auto generate state colors
 
-      if (!Object.hasOwn(input, "info")) {
+      if (input["info"] === undefined) {
         resultObj["--in"] = 198 + " " + 93 + "%" + " " + 60 + "%"
       }
-      if (!Object.hasOwn(input, "success")) {
+      if (input["success"] === undefined) {
         resultObj["--su"] = 158 + " " + 64 + "%" + " " + 52 + "%"
       }
-      if (!Object.hasOwn(input, "warning")) {
+      if (input["warning"] === undefined) {
         resultObj["--wa"] = 43 + " " + 96 + "%" + " " + 56 + "%"
       }
-      if (!Object.hasOwn(input, "error")) {
+      if (input["error"] === undefined) {
         resultObj["--er"] = 0 + " " + 91 + "%" + " " + 71 + "%"
       }
 
       // auto generate content colors
-      if (!Object.hasOwn(input, "base-content")) {
+      if (input["base-content"] === undefined) {
         resultObj["--bc"] = this.generateForegroundColorFrom(input["base-100"])
       }
-      if (!Object.hasOwn(input, "primary-content")) {
+      if (input["primary-content"] === undefined) {
         resultObj["--pc"] = this.generateForegroundColorFrom(input["primary"])
       }
-      if (!Object.hasOwn(input, "secondary-content")) {
+      if (input["secondary-content"] === undefined) {
         resultObj["--sc"] = this.generateForegroundColorFrom(input["secondary"])
       }
-      if (!Object.hasOwn(input, "accent-content")) {
+      if (input["accent-content"] === undefined) {
         resultObj["--ac"] = this.generateForegroundColorFrom(input["accent"])
       }
-      if (!Object.hasOwn(input, "neutral-content")) {
+      if (input["neutral-content"] === undefined) {
         resultObj["--nc"] = this.generateForegroundColorFrom(input["neutral"])
       }
-      if (!Object.hasOwn(input, "info-content")) {
-        if (Object.hasOwn(input, "info")) {
+      if (input["info-content"] === undefined) {
+        if (input["info"] !== undefined) {
           resultObj["--inc"] = this.generateForegroundColorFrom(input["info"])
         } else {
           resultObj["--inc"] = 198 + " " + 100 + "%" + " " + 12 + "%"
         }
       }
-      if (!Object.hasOwn(input, "success-content")) {
-        if (Object.hasOwn(input, "success")) {
+      if (input["success-content"] === undefined) {
+        if (input["success"] !== undefined) {
           resultObj["--suc"] = this.generateForegroundColorFrom(input["success"])
         } else {
           resultObj["--suc"] = 158 + " " + 100 + "%" + " " + 10 + "%"
         }
       }
-      if (!Object.hasOwn(input, "warning-content")) {
-        if (Object.hasOwn(input, "warning")) {
+      if (input["warning-content"] === undefined) {
+        if (input["warning"] !== undefined) {
           resultObj["--wac"] = this.generateForegroundColorFrom(input["warning"])
         } else {
           resultObj["--wac"] = 43 + " " + 100 + "%" + " " + 11 + "%"
         }
       }
-      if (!Object.hasOwn(input, "error-content")) {
-        if (Object.hasOwn(input, "error")) {
+      if (input["error-content"] === undefined) {
+        if (input["error"] !== undefined) {
           resultObj["--erc"] = this.generateForegroundColorFrom(input["error"])
         } else {
           resultObj["--erc"] = 0 + " " + 100 + "%" + " " + 14 + "%"
@@ -161,7 +161,7 @@ module.exports = {
       // add css variables if not exist
       Object.entries(themeDefaults.variables).forEach((item) => {
         const [variable, value] = item
-        if (!Object.hasOwn(input, variable)) {
+        if (input[variable] === undefined) {
           resultObj[variable] = value
         }
       })
@@ -207,7 +207,7 @@ module.exports = {
           Object.keys(theme).forEach((customThemeName) => {
             themeOrder.push(customThemeName)
           })
-        } else if (Object.hasOwn(includedThemesObj, "[data-theme=" + theme + "]")) {
+        } else if (includedThemesObj[`[data-theme=${theme}]`] !== undefined) {
           themeOrder.push(theme)
         }
       })
